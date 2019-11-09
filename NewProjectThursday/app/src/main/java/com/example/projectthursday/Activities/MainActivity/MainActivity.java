@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 if (fragment1 != null) {
                     if (fragment1 instanceof BlankFragment1) {
                         BlankFragment1 blankFragment1 = (BlankFragment1) fragment1;
-                        blankFragment1.deleteItem();
+                        blankFragment1.deleteItems();
                     }
                 }
                 break;
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 if (fragment != null) {
                     if (fragment instanceof BlankFragment1) {
                         BlankFragment1 blankFragment1 = (BlankFragment1) fragment;
-                        blankFragment1.addItem();
+                        blankFragment1.parseItems();
                     }
                 }
                 break;

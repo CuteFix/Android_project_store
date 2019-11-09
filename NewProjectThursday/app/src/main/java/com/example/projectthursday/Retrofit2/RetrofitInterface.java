@@ -1,6 +1,10 @@
 package com.example.projectthursday.Retrofit2;
 
 
+import com.example.projectthursday.Retrofit2.Items.GetCategoryItem;
+
+import java.util.List;
+
 import io.reactivex.Single;
 import retrofit2.Response;
 import retrofit2.http.DELETE;
@@ -12,12 +16,12 @@ import retrofit2.http.Query;
 public interface RetrofitInterface {
 
     @GET("/categories")
-    Single<Response<String>> getCategories();
+    Single<Response<List<GetCategoryItem>>> getCategories(@Query("id") Integer id, @Query("lang") String lang);
 
     @POST("/categories")
     Single<Response<String>> postCategories();
-
     @PUT("/categories")
+
     Single<Response<String>> putCategories();
 
     @DELETE("/categories")
