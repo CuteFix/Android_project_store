@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -29,16 +31,41 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import static com.example.projectthursday.Utils.Constants.GET_IMAGE_CATEGORY_URL;
 
-@AllArgsConstructor
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
+@Getter
+public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> implements Filterable {
+
+    class ViewHolder extends RecyclerView.ViewHolder{
+        @BindView(R.id.text_category) TextView text;
+        @BindView(R.id.image_category) ImageView imageView;
+        @BindView(R.id.progressBar) ProgressBar progressBar;
+
+        ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ButterKnife.bind(this,itemView);
+        }
+
+        @OnClick(R.id.card_view_category)
+        void clickCategory(){
+            Toast.makeText(itemView.getContext(), text.getText(), Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private static final String TAG = DataAdapter.class.getCanonicalName();
+    private List<GetCategoryItem> fullListData;
+    @Setter
+    private List<GetCategoryItem> filterListData;
 
-    private List<GetCategoryItem> listData;
+    public DataAdapter(List<GetCategoryItem> listData) {
+        this.fullListData = listData;
+        this.filterListData = new ArrayList<>(listData);
+    }
 
     @NonNull
     @Override
@@ -50,7 +77,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Context context = holder.itemView.getContext();
-        GetCategoryItem item = listData.get(position);
+        GetCategoryItem item = filterListData.get(position);
         holder.text.setText(item.getName());
         String imagePath = GET_IMAGE_CATEGORY_URL + item.getImage();
         Log.i(TAG,"parseItems image(" + position + ") = " + imagePath + "start");
@@ -77,45 +104,36 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return listData.size();
+        return filterListData.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.text_category) TextView text;
-        @BindView(R.id.image_category) ImageView imageView;
-        @BindView(R.id.progressBar) ProgressBar progressBar;
-
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            ButterKnife.bind(this,itemView);
-        }
-
-        @OnClick(R.id.card_view_category)
-        void clickCategory(){
-            Toast.makeText(itemView.getContext(), text.getText(), Toast.LENGTH_SHORT).show();
-        }
+    @Override
+    public Filter getFilter() {
+        return new MyFilter(this);
     }
 
     public void addItem(GetCategoryItem data){
-        listData.add(data);
+        filterListData.add(data);
         notifyItemChanged(getItemCount()-1);
     }
 
     public void addListItems(List<GetCategoryItem> data){
-        listData = data;
+        filterListData = new ArrayList<>(data);
+        fullListData = data;
         notifyDataSetChanged();
     }
 
     public void removeLastItem(){
-        if(!listData.isEmpty()){
-            listData.remove(getItemCount()-1);
+        if(!filterListData.isEmpty()){
+            filterListData.remove(getItemCount()-1);
             notifyDataSetChanged();
         }
     }
 
     public void removeAll(){
-        listData = new ArrayList<>();
+        filterListData = new ArrayList<>();
         notifyDataSetChanged();
     }
+
 }
 

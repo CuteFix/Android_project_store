@@ -93,4 +93,7 @@ public class BlankFragment1 extends Fragment {
         adapter.removeAll();
     }
 
+    public void searchText(String searchText){
+        adapter.getFilter().filter(searchText);
+    }
 }

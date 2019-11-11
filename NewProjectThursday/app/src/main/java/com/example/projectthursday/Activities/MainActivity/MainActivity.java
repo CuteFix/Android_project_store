@@ -1,6 +1,8 @@
 package com.example.projectthursday.Activities.MainActivity;
 
 import android.annotation.SuppressLint;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +10,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         presenter = new MainActivityPresenter(this);
         presenter.startFragment(new BlankFragment1(), Constants.FRAGMENT_1);
 
+
 //        Requests.INSTANCE.getHeaders().subscribe(new SingleObserver<Response<HeadersTest>>() {
 //            @Override
 //            public void onSubscribe(Disposable d) {
@@ -67,7 +71,38 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main_menu, menu);
-        return true;
+
+        SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
+
+        MenuItem searchItem = menu.findItem(R.id.toolbar_search);
+        if (searchItem != null) {
+            SearchView searchView = (SearchView) searchItem.getActionView();
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    Fragment fragment = fragmentManager.findFragmentByTag(Constants.FRAGMENT_1);
+
+                    if (fragment != null) {
+                        if (fragment instanceof BlankFragment1) {
+                            BlankFragment1 blankFragment = (BlankFragment1) fragment;
+                            blankFragment.searchText(newText);
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

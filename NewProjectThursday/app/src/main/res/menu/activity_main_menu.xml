@@ -3,21 +3,29 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <item
+        android:id="@+id/toolbar_search"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        android:title="search"/>
+
     <item
         android:id="@+id/toolbar_filter"
-        app:showAsAction="ifRoom"
+        app:showAsAction="never"
         android:icon="@drawable/filter_menu"
         android:title="filter"/>
 
     <item
         android:id="@+id/toolbar_item_delete"
-        app:showAsAction="ifRoom"
+        app:showAsAction="never"
         android:icon="@drawable/delete"
         android:title="delete"/>
 
     <item
         android:id="@+id/toolbar_item_add"
-        app:showAsAction="ifRoom"
+        app:showAsAction="never"
         android:icon="@drawable/plus"
         android:title="add"/>
 
