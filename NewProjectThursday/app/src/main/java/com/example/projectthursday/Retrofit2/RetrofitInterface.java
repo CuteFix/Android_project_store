@@ -1,6 +1,7 @@
 package com.example.projectthursday.Retrofit2;
 
 
+import com.example.projectthursday.Retrofit2.Items.ColorItem;
 import com.example.projectthursday.Retrofit2.Items.GetCategoryItem;
 import com.example.projectthursday.Retrofit2.Items.GetSubCategoryItem;
 
@@ -59,7 +60,7 @@ public interface RetrofitInterface {
     //...................................................
 
     @GET("/colors")
-    Single<Response<String>> getColors();
+    Single<Response<List<ColorItem>>> getColors();
 
     @POST("/colors")
     Single<Response<String>> postColors();

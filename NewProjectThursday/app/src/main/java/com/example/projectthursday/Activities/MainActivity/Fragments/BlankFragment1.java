@@ -63,15 +63,7 @@ public class BlankFragment1 extends Fragment {
                     }
             }
         }
-
-        DataAdapter.NewDataCallback newDataCallback = new DataAdapter.NewDataCallback() {
-            @Override
-            public void show(List<Category> list) {
-                show(list);
-            }
-        };
-
-        adapter = new DataAdapter(list, newDataCallback);
+        adapter = new DataAdapter(list, this::show);
         recyclerView.setAdapter(adapter);
     }
 

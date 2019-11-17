@@ -4,18 +4,17 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="textColor1">#D81B60</color>
-    <color name="textColor2">#D81B60</color>
-    <color name="textColor3">#D81B60</color>
+    <color name="telegram_dark_light">#242f3d</color>
+    <color name="telegram_dark_medium">#17212b</color>
+    <color name="telegram_dark_hard">#0e1621</color>
 
-    <color name="backgroundColor1">#D81B60</color>
-    <color name="backgroundColor2">#D81B60</color>
-    <color name="backgroundColor3">#D81B60</color>
+    <color name="telegram_blue_dark">#2a5378</color>
+    <color name="telegram_blue_light">#4082bc</color>
 
-    <color name="color1">#D81B60</color>
-    <color name="color2">#D81B60</color>
-    <color name="color3">#D81B60</color>
-    <color name="color4">#D81B60</color>
-    <color name="color5">#D81B60</color>
-    
+    <color name="telegram_gray_hard">#3f4750</color>
+    <color name="telegram_gray_medium">#626e7a</color>
+    <color name="telegram_gray_light">#7d8389</color>
+
+    <color name="telegram_white">#dcdcdc</color>
+
 </resources>

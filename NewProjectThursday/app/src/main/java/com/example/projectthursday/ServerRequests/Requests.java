@@ -1,6 +1,7 @@
 package com.example.projectthursday.ServerRequests;
 
 import com.example.projectthursday.Retrofit2.ApiUtil;
+import com.example.projectthursday.Retrofit2.Items.ColorItem;
 import com.example.projectthursday.Retrofit2.Items.GetCategoryItem;
 import com.example.projectthursday.Retrofit2.Items.GetSubCategoryItem;
 import com.example.projectthursday.Retrofit2.RetrofitInterface;
@@ -18,7 +19,7 @@ public enum Requests {
 
     private final RetrofitInterface retrofitInterface = ApiUtil.INSTANCE.getServiceClass();
 
-    public Single<Response<String>> getColors() {
+    public Single<Response<List<ColorItem>>> getColors() {
         return retrofitInterface.getColors()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io());

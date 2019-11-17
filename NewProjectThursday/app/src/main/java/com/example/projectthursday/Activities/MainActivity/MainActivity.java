@@ -5,6 +5,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -20,6 +21,7 @@ import com.example.projectthursday.Activities.MainActivity.Fragments.BlankFragme
 import com.example.projectthursday.Activities.MainActivity.Fragments.BlankFragment2;
 import com.example.projectthursday.Activities.MainActivity.Fragments.BlankFragment3;
 import com.example.projectthursday.R;
+import com.example.projectthursday.Utils.Colors;
 import com.example.projectthursday.Utils.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -48,6 +50,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         presenter = new MainActivityPresenter(this);
         presenter.startFragment(new BlankFragment1(), Constants.FRAGMENT_1);
 
+        String[] telegramColors = getResources().getStringArray(R.array.telegram_colors);
+
+        for (String colorName: telegramColors) {
+            Log.d(TAG,"Telegram color " + colorName + " = " + Colors.getColorRgbByName(colorName));
+        }
 
 //        Requests.INSTANCE.getHeaders().subscribe(new SingleObserver<Response<HeadersTest>>() {
 //            @Override
