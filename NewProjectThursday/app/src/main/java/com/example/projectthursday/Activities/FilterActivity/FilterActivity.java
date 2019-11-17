@@ -78,7 +78,6 @@ public class FilterActivity extends AppCompatActivity {
 //            }
 //        });
 
-        Toast.makeText(this, "Lang = " + Language.get(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

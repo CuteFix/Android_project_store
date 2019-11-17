@@ -2,6 +2,7 @@ package com.example.projectthursday.Retrofit2;
 
 
 import com.example.projectthursday.Retrofit2.Items.GetCategoryItem;
+import com.example.projectthursday.Retrofit2.Items.GetSubCategoryItem;
 
 import java.util.List;
 
@@ -18,27 +19,27 @@ public interface RetrofitInterface {
     @GET("/categories")
     Single<Response<List<GetCategoryItem>>> getCategories(@Query("id") Integer id, @Query("lang") String lang);
 
-    @POST("/categories")
-    Single<Response<String>> postCategories();
-    @PUT("/categories")
-
-    Single<Response<String>> putCategories();
-
-    @DELETE("/categories")
-    Single<Response<String>> deleteCategories();
+//    @POST("/categories")
+//    Single<Response<String>> postCategories();
+//    @PUT("/categories")
+//
+//    Single<Response<String>> putCategories();
+//
+//    @DELETE("/categories")
+//    Single<Response<String>> deleteCategories();
 
     //...................................................
 
-    @GET("/Subcategory")
-    Single<Response<String>> getSubcategory();
+    @GET("/subcategories")
+    Single<Response<List<GetSubCategoryItem>>> getSubcategories(@Query("catId") Integer catId, @Query("lang") String lang, @Query("admin") Boolean admin);
 
-    @POST("/Subcategory")
+    @POST("/subcategories")
     Single<Response<String>> postSubcategory();
 
-    @PUT("/Subcategory")
+    @PUT("/subcategories")
     Single<Response<String>> putSubcategory();
 
-    @DELETE("/Subcategory")
+    @DELETE("/subcategories")
     Single<Response<String>> deleteSubcategory();
 
     //...................................................

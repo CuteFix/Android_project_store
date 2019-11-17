@@ -3,19 +3,23 @@ package com.example.projectthursday.Activities.MainActivity.Fragments;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectthursday.Activities.MainActivity.Adapter.DataAdapter;
 import com.example.projectthursday.R;
+import com.example.projectthursday.Retrofit2.Items.Category;
 import com.example.projectthursday.Retrofit2.Items.GetCategoryItem;
+import com.example.projectthursday.Retrofit2.Items.GetSubCategoryItem;
 import com.example.projectthursday.ServerRequests.Requests;
 import com.example.projectthursday.Utils.Language;
 
@@ -41,12 +45,34 @@ public class BlankFragment1 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        adapter = new DataAdapter(new ArrayList<>());
-
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerView.setAdapter(adapter);
-
         parseItems();
+    }
+
+    public void show(List<Category> list) {
+        if (list != null) {
+            if (!list.isEmpty()) {
+                Category category = list.get(0);
+                if (getActivity() != null)
+                    if (category instanceof GetCategoryItem) {
+                        getActivity().setTitle(R.string.category_title);
+                        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                    } else if (category instanceof GetSubCategoryItem) {
+                        getActivity().setTitle(R.string.sub_category_title);
+                        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    }
+            }
+        }
+
+        DataAdapter.NewDataCallback newDataCallback = new DataAdapter.NewDataCallback() {
+            @Override
+            public void show(List<Category> list) {
+                show(list);
+            }
+        };
+
+        adapter = new DataAdapter(list, newDataCallback);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -55,7 +81,7 @@ public class BlankFragment1 extends Fragment {
     }
 
     public void parseItems() {
-        Requests.INSTANCE.getCategories(null, Language.get())
+        Requests.INSTANCE.getCategories(null, Language.get(), null)
                 .subscribe(new SingleObserver<Response<List<GetCategoryItem>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -64,36 +90,45 @@ public class BlankFragment1 extends Fragment {
 
                     @Override
                     public void onSuccess(Response<List<GetCategoryItem>> listResponse) {
-                        Log.i(TAG,"parseItems onSuccess");
-                        Log.i(TAG,"parseItems response = " + listResponse.code());
+                        Log.i(TAG, "parseItems onSuccess");
+                        Log.i(TAG, "parseItems response = " + listResponse.code());
 
                         switch (listResponse.code()) {
                             case 200: {
                                 List<GetCategoryItem> list = listResponse.body();
                                 if (list != null) {
-                                    adapter.addListItems(list);
+                                    show(new ArrayList<>(list));
                                 }
                                 break;
                             }
-                            default:
-                                Toast.makeText(getContext(),"ERROR", Toast.LENGTH_SHORT).show();
+                            default: {
+
+                            }
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG,"parseItems onError");
+                        Log.i(TAG, "parseItems onError");
                     }
                 });
+    }
 
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                parseItems();
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void deleteItems() {
         adapter.removeAll();
     }
 
-    public void searchText(String searchText){
+    public void searchText(String searchText) {
         adapter.getFilter().filter(searchText);
     }
 }

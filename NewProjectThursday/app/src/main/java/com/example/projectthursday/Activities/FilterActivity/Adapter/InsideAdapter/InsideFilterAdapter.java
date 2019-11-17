@@ -51,7 +51,7 @@ public class InsideFilterAdapter extends RecyclerView.Adapter<InsideFilterAdapte
         holder.checkBox.setText(item.getName());
         holder.checkBox.setOnClickListener(view -> {
             if(holder.checkBox.isChecked()){
-                Toast.makeText(context,"click " + position,Toast.LENGTH_SHORT).show();
+
             }
             else {
 

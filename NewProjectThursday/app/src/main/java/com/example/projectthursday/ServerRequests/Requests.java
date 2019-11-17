@@ -2,6 +2,7 @@ package com.example.projectthursday.ServerRequests;
 
 import com.example.projectthursday.Retrofit2.ApiUtil;
 import com.example.projectthursday.Retrofit2.Items.GetCategoryItem;
+import com.example.projectthursday.Retrofit2.Items.GetSubCategoryItem;
 import com.example.projectthursday.Retrofit2.RetrofitInterface;
 
 import java.util.List;
@@ -23,8 +24,14 @@ public enum Requests {
                 .subscribeOn(Schedulers.io());
     }
 
-    public  Single<Response<List<GetCategoryItem>>> getCategories(Integer id, String lang) {
+    public  Single<Response<List<GetCategoryItem>>> getCategories(Integer id, String lang, Boolean admin) {
         return retrofitInterface.getCategories(id, lang)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
+    }
+
+    public  Single<Response<List<GetSubCategoryItem>>> getSubCategories(Integer catId, String lang, Boolean admin) {
+        return retrofitInterface.getSubcategories(catId, lang, admin)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io());
     }

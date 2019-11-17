@@ -5,7 +5,7 @@ import com.squareup.moshi.Json;
 import lombok.Data;
 
 @Data
-public class GetCategoryItem implements Category{
+public class GetSubCategoryItem implements Category{
 
     @Json(name = "id")
     private Integer id;

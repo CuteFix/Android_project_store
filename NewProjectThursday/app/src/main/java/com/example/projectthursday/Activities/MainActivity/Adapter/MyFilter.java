@@ -2,6 +2,7 @@ package com.example.projectthursday.Activities.MainActivity.Adapter;
 
 import android.widget.Filter;
 
+import com.example.projectthursday.Retrofit2.Items.Category;
 import com.example.projectthursday.Retrofit2.Items.GetCategoryItem;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ class MyFilter extends Filter {
     @Override
     protected FilterResults performFiltering(CharSequence charSequence) {
         String searchText = charSequence.toString();
-        List<GetCategoryItem> resultList = new ArrayList<>();
+        List<Category> resultList = new ArrayList<>();
 
         Observable.fromIterable(adapter.getFullListData())
                 .filter(x -> x.getName().toLowerCase().contains(searchText.toLowerCase()))
@@ -34,7 +35,7 @@ class MyFilter extends Filter {
 
     @Override
     protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-        adapter.setFilterListData((ArrayList<GetCategoryItem>) filterResults.values);
+        adapter.setFilterListData((ArrayList<Category>) filterResults.values);
         adapter.notifyDataSetChanged();
     }
 

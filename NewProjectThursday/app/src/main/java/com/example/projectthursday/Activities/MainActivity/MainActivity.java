@@ -137,8 +137,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     }
                 }
                 break;
+            case android.R.id.home:{
+                Fragment fragment11 = fragmentManager.findFragmentByTag(Constants.FRAGMENT_1);
+                if (fragment11 != null) {
+                    if (fragment11 instanceof BlankFragment1) {
+                        ((BlankFragment1) fragment11).parseItems();
+                    }
+                }
+                break;
+            }
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
