@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +24,9 @@ import com.example.projectthursday.Activities.MainActivity.Fragments.BlankFragme
 import com.example.projectthursday.Activities.MainActivity.Fragments.BlankFragment2;
 import com.example.projectthursday.Activities.MainActivity.Fragments.BlankFragment3;
 import com.example.projectthursday.R;
-import com.example.projectthursday.Utils.Colors;
 import com.example.projectthursday.Utils.Constants;
+import com.example.projectthursday.Utils.ParsData.Colors;
+import com.example.projectthursday.Utils.ParsData.Strings;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import butterknife.BindView;
@@ -50,30 +54,77 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         presenter = new MainActivityPresenter(this);
         presenter.startFragment(new BlankFragment1(), Constants.FRAGMENT_1);
 
-        String[] telegramColors = getResources().getStringArray(R.array.telegram_colors);
+        setStatusBarColor(Colors.getColorByName(getString(R.string.telegram_dark_light)));
+        setActionBarColor(Colors.getColorByName(getString(R.string.telegram_dark_medium)));
+        setBottomMenuColor(Colors.getColorByName(getString(R.string.telegram_dark_medium)));
+        setBottomMenuItemTextColor();
+        setBottomMenuItemIconColor();
 
-        for (String colorName: telegramColors) {
-            Log.d(TAG,"Telegram color " + colorName + " = " + Colors.getColorRgbByName(colorName));
-        }
-
-//        Requests.INSTANCE.getHeaders().subscribe(new SingleObserver<Response<HeadersTest>>() {
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//                Log.i(TAG, "getHeaders() onSubscribe");
-//            }
-//
-//            @Override
-//            public void onSuccess(Response<HeadersTest> headersResponse) {
-//
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                Log.i(TAG, "getHeaders() onError");
-//            }
-//        });
+        setBottomMenuItemText();
 
     }
+
+    private void setStatusBarColor(int color) {
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(color);
+    }
+
+    private void setActionBarColor(int color) {
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(color));
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+    }
+
+    private void setBottomMenuColor(int color) {
+        bottomNavigationView.setItemBackground(new ColorDrawable(color));
+    }
+
+    private void setBottomMenuItemTextColor() {
+        ColorStateList myColorStateList = new ColorStateList(
+                new int[][]{
+                        new int[]{android.R.attr.state_checked}, //активна
+                        new int[]{android.R.attr.state_pressed}, //нажата
+                        new int[]{} //не активна
+                },
+                new int[]{
+                        Colors.getColorByName(getString(R.string.telegram_white)),
+                        Colors.getColorByName(getString(R.string.telegram_gray_light)),
+                        Colors.getColorByName(getString(R.string.telegram_gray_medium)),
+                }
+        );
+
+        bottomNavigationView.setItemTextColor(myColorStateList);
+    }
+
+    private void setBottomMenuItemIconColor() {
+
+        ColorStateList myColorStateList = new ColorStateList(
+                new int[][]{
+                        new int[]{android.R.attr.state_checked}, //активна
+                        new int[]{android.R.attr.state_pressed}, //нажата
+                        new int[]{} //не активна
+                },
+                new int[]{
+                        Colors.getColorByName(getString(R.string.telegram_white)),
+                        Colors.getColorByName(getString(R.string.telegram_gray_light)),
+                        Colors.getColorByName(getString(R.string.telegram_gray_medium)),
+                }
+        );
+
+        bottomNavigationView.setItemIconTintList(myColorStateList);
+    }
+
+    public void setBottomMenuItemText() {
+        bottomNavigationView.getMenu().findItem(R.id.bnv_1)
+                .setTitle(Strings.getByKey(getString(R.string.bnv_1)));
+        bottomNavigationView.getMenu().findItem(R.id.bnv_2)
+                .setTitle(Strings.getByKey(getString(R.string.bnv_2)));
+        bottomNavigationView.getMenu().findItem(R.id.bnv_3)
+                .setTitle(Strings.getByKey(getString(R.string.bnv_3)));
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -144,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     }
                 }
                 break;
-            case android.R.id.home:{
+            case android.R.id.home: {
                 Fragment fragment11 = fragmentManager.findFragmentByTag(Constants.FRAGMENT_1);
                 if (fragment11 != null) {
                     if (fragment11 instanceof BlankFragment1) {
@@ -160,13 +211,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.toolbar_star_bnv_1:
+            case R.id.bnv_1:
                 presenter.startFragment(new BlankFragment1(), Constants.FRAGMENT_1);
                 break;
-            case R.id.toolbar_star_bnv_2:
+            case R.id.bnv_2:
                 presenter.startFragment(new BlankFragment2(), Constants.FRAGMENT_2);
                 break;
-            case R.id.toolbar_star_bnv_3:
+            case R.id.bnv_3:
                 presenter.startFragment(new BlankFragment3(), Constants.FRAGMENT_3);
                 break;
         }
