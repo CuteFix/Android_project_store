@@ -1,36 +1,24 @@
 package com.example.projectthursday.Activities.FilterActivity;
 
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
-
 import com.example.projectthursday.Activities.FilterActivity.Adapter.FilterAdapter;
 import com.example.projectthursday.Items.FilterItem;
 import com.example.projectthursday.Items.FilterUnderItem;
 import com.example.projectthursday.R;
-import com.example.projectthursday.Retrofit2.ApiUtil;
-import com.example.projectthursday.ServerRequests.Requests;
-import com.example.projectthursday.Utils.Constants;
-import com.example.projectthursday.Utils.Language;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Filter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import retrofit2.Response;
 
 public class FilterActivity extends AppCompatActivity {
 

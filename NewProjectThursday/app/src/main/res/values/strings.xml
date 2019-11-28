@@ -7,33 +7,43 @@
     <string name="category_title">Categories</string>
     <string name="sub_category_title">Subcategories</string>
 
-    <string name="telegram_dark_light">#telegram_dark_light</string>
-    <string name="telegram_dark_medium">#telegram_dark_medium</string>
-    <string name="telegram_dark_hard">#telegram_dark_hard</string>
+    <string name="telegram_dark_light">telegram_dark_light</string>
+    <string name="telegram_dark_medium">telegram_dark_medium</string>
+    <string name="telegram_dark_hard">telegram_dark_hard</string>
 
-    <string name="telegram_blue_dark">#telegram_blue_dark</string>
-    <string name="telegram_blue_light">#telegram_blue_light</string>
+    <string name="telegram_blue_dark">telegram_blue_dark</string>
+    <string name="telegram_blue_light">telegram_blue_light</string>
 
-    <string name="telegram_gray_hard">#telegram_gray_hard</string>
-    <string name="telegram_gray_medium">#telegram_gray_medium</string>
-    <string name="telegram_gray_light">#telegram_gray_light</string>
+    <string name="telegram_gray_hard">telegram_gray_hard</string>
+    <string name="telegram_gray_medium">telegram_gray_medium</string>
+    <string name="telegram_gray_light">telegram_gray_light</string>
 
-    <string name="telegram_white">#telegram_white</string>
-    
-    <string-array name="telegram_colors">
-        <item>telegram_dark_light</item>
-        <item>telegram_dark_medium</item>
-        <item>telegram_dark_hard</item>
+    <string name="telegram_white">telegram_white</string>
+    <!--    -->
+    <!--    <string-array name="telegram_colors">-->
+    <!--        <item>telegram_dark_light</item>-->
+    <!--        <item>telegram_dark_medium</item>-->
+    <!--        <item>telegram_dark_hard</item>-->
 
-        <item>telegram_blue_dark</item>
-        <item>telegram_blue_light</item>
+    <!--        <item>telegram_blue_dark</item>-->
+    <!--        <item>telegram_blue_light</item>-->
 
-        <item>telegram_gray_hard</item>
-        <item>telegram_gray_medium</item>
-        <item>telegram_gray_light</item>
+    <!--        <item>telegram_gray_hard</item>-->
+    <!--        <item>telegram_gray_medium</item>-->
+    <!--        <item>telegram_gray_light</item>-->
 
-        <item>telegram_white</item>
-    </string-array>
+    <!--        <item>telegram_white</item>-->
+    <!--    </string-array>-->
 
+    <!--    <string-array name="strings">-->
+    <!--        <item>text_1</item>-->
+    <!--    </string-array>-->
+
+    <string name="bnv_1">bnv_1</string>
+    <string name="bnv_2">bnv_2</string>
+    <string name="bnv_3">bnv_3</string>
+
+    <string name="categories">categories</string>
+    <string name="subcategories">subcategories</string>
 
 </resources>

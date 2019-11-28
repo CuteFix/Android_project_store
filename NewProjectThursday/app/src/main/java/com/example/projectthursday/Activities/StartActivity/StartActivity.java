@@ -1,25 +1,17 @@
 package com.example.projectthursday.Activities.StartActivity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.projectthursday.Activities.MainActivity.MainActivity;
 import com.example.projectthursday.R;
 import com.example.projectthursday.Retrofit2.Items.ColorItem;
-import com.example.projectthursday.ServerRequests.Requests;
-import com.example.projectthursday.Utils.Colors;
-
-import org.reactivestreams.Subscription;
-
-import java.util.List;
-
-import io.reactivex.FlowableSubscriber;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import retrofit2.Response;
+import com.example.projectthursday.Retrofit2.Items.GetStringsItem;
+import com.example.projectthursday.Retrofit2.ServerRequests.RequestsComplete;
+import com.example.projectthursday.Utils.ParsData.Colors;
+import com.example.projectthursday.Utils.ParsData.Strings;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -28,60 +20,33 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        Requests.INSTANCE.getColors().subscribe(new SingleObserver<Response<List<ColorItem>>>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+        getColors();
+    }
 
-            }
-
-            @Override
-            public void onSuccess(Response<List<ColorItem>> listResponse) {
-                int responseCode = listResponse.code();
-
-                switch (responseCode) {
-                    case 200: {
-                        List<ColorItem> list = listResponse.body();
-                        if (list != null) {
-                            if (!list.isEmpty()) {
-                                for (ColorItem color : list) {
-                                    Colors.setColor(color.getKey(), color.getValue());
-                                }
-                                startActivity(new Intent(StartActivity.this, MainActivity.class));
-                            }
-                        }
+    private void getColors() {
+        RequestsComplete.INSTANCE.getColors(list -> {
+            if (list != null) {
+                if (!list.isEmpty()) {
+                    for (ColorItem item : list) {
+                        Colors.setColor(item.getKey(), item.getValue());
                     }
+                    getStrings();
                 }
             }
+        });
+    }
 
-            @Override
-            public void onError(Throwable e) {
-
+    private void getStrings() {
+        RequestsComplete.INSTANCE.getStrings(list -> {
+            if (list != null) {
+                if (!list.isEmpty()) {
+                    for (GetStringsItem item : list) {
+                        Strings.setByKey(item.getKey(), item.getValue());
+                    }
+                    startActivity(new Intent(StartActivity.this, MainActivity.class));
+                }
             }
         });
-//
-//        Requests.INSTANCE.getColors().mergeWith(Requests.INSTANCE.getCategories(5, "ru", null))
-//                .subscribe(new FlowableSubscriber<Response<List<ColorItem>>>() {
-//                    @Override
-//                    public void onSubscribe(Subscription s) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(Response<List<ColorItem>> listResponse) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable t) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
-
     }
 
 }

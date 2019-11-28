@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,8 +19,10 @@ import com.example.projectthursday.R;
 import com.example.projectthursday.Retrofit2.Items.Category;
 import com.example.projectthursday.Retrofit2.Items.GetCategoryItem;
 import com.example.projectthursday.Retrofit2.Items.GetSubCategoryItem;
-import com.example.projectthursday.ServerRequests.Requests;
+import com.example.projectthursday.Retrofit2.ServerRequests.Requests;
 import com.example.projectthursday.Utils.Language;
+import com.example.projectthursday.Utils.ParsData.Colors;
+import com.example.projectthursday.Utils.ParsData.Strings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,8 @@ public class BlankFragment1 extends Fragment {
 
     @BindView(R.id.recycle_view_categories)
     RecyclerView recyclerView;
+    @BindView(R.id.fragment_1_container)
+    ViewGroup container;
     private DataAdapter adapter;
 
     @Override
@@ -45,8 +48,14 @@ public class BlankFragment1 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+        setBackgroundColor(Colors.getColorByName(getString(R.string.telegram_dark_hard)));
+
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         parseItems();
+    }
+
+    private void setBackgroundColor(int color) {
+        container.setBackgroundColor(color);
     }
 
     public void show(List<Category> list) {
@@ -55,10 +64,11 @@ public class BlankFragment1 extends Fragment {
                 Category category = list.get(0);
                 if (getActivity() != null)
                     if (category instanceof GetCategoryItem) {
-                        getActivity().setTitle(R.string.category_title);
+
+                        getActivity().setTitle(Strings.getByKey(getString(R.string.categories)));
                         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                     } else if (category instanceof GetSubCategoryItem) {
-                        getActivity().setTitle(R.string.sub_category_title);
+                        getActivity().setTitle(Strings.getByKey(getString(R.string.subcategories)));
                         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     }
             }

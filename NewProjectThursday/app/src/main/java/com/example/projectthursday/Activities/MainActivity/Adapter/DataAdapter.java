@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,19 +25,17 @@ import com.example.projectthursday.R;
 import com.example.projectthursday.Retrofit2.Items.Category;
 import com.example.projectthursday.Retrofit2.Items.GetCategoryItem;
 import com.example.projectthursday.Retrofit2.Items.GetSubCategoryItem;
-import com.example.projectthursday.ServerRequests.Requests;
+import com.example.projectthursday.Retrofit2.ServerRequests.Requests;
 import com.example.projectthursday.Utils.Language;
+import com.example.projectthursday.Utils.ParsData.Colors;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import io.reactivex.Observable;
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import retrofit2.Response;
@@ -90,10 +87,12 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> im
         Context context = holder.itemView.getContext();
         Category category = filterListData.get(position);
 
+        holder.text.setBackgroundColor(Colors.getColorByName(context.getString(R.string.telegram_blue_dark)));
+        holder.text.setTextColor(Colors.getColorByName(context.getString(R.string.telegram_white)));
+
         holder.text.setText(category.getName());
         String imagePath = null;
         Log.i(TAG, "parseItems image(" + position + ") = " + imagePath + "start");
-
 
         if (category instanceof GetCategoryItem) {
             imagePath = GET_IMAGE_CATEGORY_URL + category.getImage();

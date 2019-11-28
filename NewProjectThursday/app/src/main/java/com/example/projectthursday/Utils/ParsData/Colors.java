@@ -1,4 +1,4 @@
-package com.example.projectthursday.Utils;
+package com.example.projectthursday.Utils.ParsData;
 
 
 import android.graphics.Color;
@@ -15,10 +15,6 @@ public class Colors {
 
     public static void setColor(String key,String value){
         colors.put(key, value);
-    }
-
-    public static String getColorRgbByName(String key){
-        return colors.get(key);
     }
 
 }

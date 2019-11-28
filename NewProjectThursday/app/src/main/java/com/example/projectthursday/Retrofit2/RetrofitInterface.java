@@ -3,6 +3,7 @@ package com.example.projectthursday.Retrofit2;
 
 import com.example.projectthursday.Retrofit2.Items.ColorItem;
 import com.example.projectthursday.Retrofit2.Items.GetCategoryItem;
+import com.example.projectthursday.Retrofit2.Items.GetStringsItem;
 import com.example.projectthursday.Retrofit2.Items.GetSubCategoryItem;
 
 import java.util.List;
@@ -34,42 +35,42 @@ public interface RetrofitInterface {
     @GET("/subcategories")
     Single<Response<List<GetSubCategoryItem>>> getSubcategories(@Query("catId") Integer catId, @Query("lang") String lang, @Query("admin") Boolean admin);
 
-    @POST("/subcategories")
-    Single<Response<String>> postSubcategory();
-
-    @PUT("/subcategories")
-    Single<Response<String>> putSubcategory();
-
-    @DELETE("/subcategories")
-    Single<Response<String>> deleteSubcategory();
+//    @POST("/subcategories")
+//    Single<Response<String>> postSubcategory();
+//
+//    @PUT("/subcategories")
+//    Single<Response<String>> putSubcategory();
+//
+//    @DELETE("/subcategories")
+//    Single<Response<String>> deleteSubcategory();
 
     //...................................................
 
-    @GET("/languages")
-    Single<Response<String>> getLanguage();
+    @GET("/locale")
+    Single<Response<List<GetStringsItem>>> getStrings(@Query("lang") String lang, @Query("admin") Boolean admin);
 
-    @POST("/languages")
-    Single<Response<String>> postLanguage();
-
-    @PUT("/languages")
-    Single<Response<String>> putLanguage();
-
-    @DELETE("/languages")
-    Single<Response<String>> deleteLanguage();
+//    @POST("/locale")
+//    Single<Response<String>> postStrings();
+//
+//    @PUT("/locale")
+//    Single<Response<String>> putStrings();
+//
+//    @DELETE("/locale")
+//    Single<Response<String>> deleteStrings();
 
     //...................................................
 
     @GET("/colors")
     Single<Response<List<ColorItem>>> getColors();
-
-    @POST("/colors")
-    Single<Response<String>> postColors();
-
-    @PUT("/colors")
-    Single<Response<String>> putColors();
-
-    @DELETE("/colors")
-    Single<Response<String>> deleteColors();
+//
+//    @POST("/colors")
+//    Single<Response<String>> postColors();
+//
+//    @PUT("/colors")
+//    Single<Response<String>> putColors();
+//
+//    @DELETE("/colors")
+//    Single<Response<String>> deleteColors();
 
     //...................................................
 

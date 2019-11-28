@@ -5,10 +5,7 @@
     android:id="@+id/card_view_category"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/grid_top_margin"
-    android:layout_marginEnd="@dimen/grid_right_margin"
-    android:layout_marginBottom="@dimen/grid_bottom_margin"
-    android:layout_marginStart="@dimen/grid_left_margin">
+    android:layout_margin="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

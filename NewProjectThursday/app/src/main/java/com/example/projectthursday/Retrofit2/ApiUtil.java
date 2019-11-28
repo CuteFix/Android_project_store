@@ -1,7 +1,5 @@
 package com.example.projectthursday.Retrofit2;
 
-import com.example.projectthursday.ServerRequests.Requests;
-
 public enum ApiUtil {
 
     INSTANCE;
